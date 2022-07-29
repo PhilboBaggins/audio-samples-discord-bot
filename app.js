@@ -9,9 +9,6 @@ client.once('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
-	//if (!interaction.isChatInputCommand())
-  //  return;
-
   const { commandName } = interaction;
 
 	if (commandName === 'ping') {
@@ -25,7 +22,6 @@ client.on('interactionCreate', async interaction => {
   } else if (interaction.isButton() && interaction.customId.startsWith('play:')) {
     await audio.playFromButton(interaction);
   } else {
-    //console.dir(interaction);
     console.log(interaction.options);
   }
 });

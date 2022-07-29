@@ -1,7 +1,4 @@
 const {
-  SlashCommandBuilder,
-  CommandInteraction,
-  PermissionFlagsBits,
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle
@@ -9,13 +6,7 @@ const {
 const {
   createAudioPlayer,
   createAudioResource,
-  entersState,
-  generateDependencyReport,
   joinVoiceChannel,
-  NoSubscriberBehavior,
-  StreamType,
-  AudioPlayerStatus,
-  VoiceConnectionStatus,
 } = require('@discordjs/voice');
 const config = require('./config.json');
 
