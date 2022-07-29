@@ -143,12 +143,13 @@ async function _play(interaction, trackNum) {
 
   // ...........................................................................
   const track = AUDIO_FILE_PATHS[trackNum % AUDIO_FILE_PATHS.length];
-  const trackName = baseName(track);
+  const trackName = justFileName(track);
 
   // Play the requested audio file
   let resource = createAudioResource(track);
   player.play(resource);
 
+  console.log(`${interaction.member.user.username} is playing ${trackName}`);
   interaction.reply({ content: `Playing ${trackName}`, ephemeral: true });
 };
 
