@@ -8,60 +8,25 @@ const {
   createAudioResource,
   joinVoiceChannel,
 } = require('@discordjs/voice');
+const {
+  formatInteger,
+  getIntegerLength,
+  justFileName,
+  partition,
+} = require('./util.js');
 const config = require('./config.json');
 
 const CHANNEL_ID = '696242550163374100'; // 'General' voice channel 'Colonial Cannibalism Union' server
 
-
-
-
-
-// TODO: Move this to util.js or something like that
-function baseName(path) {
-  return path.split('/').reverse()[0];
-}
-
-// TODO: There has got to be a better way to do this.... Javascript can't be this shit
-// TODO: Move this to util.js or something like that
-function formatInteger(length, num) {
-  return String(num).padStart(length, '0');
-}
-
-// TODO: Move this to util.js or something like that
-function getIntegerLength(num) {
-  const str = `${num}`;
-  return str.length;
-}
-
-// TODO: Move this to util.js or something like that
-function justFileName(path) {
-  fileNameWithExt = baseName(path);
-  return fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf('.')) || fileNameWithExt;
-}
-
-// TODO: Move this to util.js or something like that
-// https://stackoverflow.com/a/26230409
-function partition(array, n) {
-  return array.length ? [array.splice(0, n)].concat(partition(array, n)) : [];
-}
-
-
-
-
-
-
 const player = createAudioPlayer();
+
 player.on('error', (error) => {
   console.error(`Error with audio player: ${error.message} with resource ${error.resource.metadata.title}`);
 });
+
 player.on('stateChange', (oldState, newState) => {
   //console.log(`Changing music player state from ${oldState.status} to ${newState.status}`);
 });
-
-
-
-
-
 
 async function trackList(interaction) {
   const formatLength = getIntegerLength(config.AUDIO_FILE_PATHS.length);
