@@ -1,8 +1,6 @@
-
-require('dotenv').config();
-
 const { SlashCommandBuilder, Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');
+const config = require('./config.json');
 
 const commands = [
   new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
@@ -17,8 +15,8 @@ const commands = [
 			.setRequired(true)),
 ].map(command => command.toJSON());
 
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+const rest = new REST({ version: '10' }).setToken(config.DISCORD_TOKEN);
 
-rest.put(Routes.applicationGuildCommands(process.env.DISCORD_APP_ID, process.env.DISCORD_GUILD_ID), { body: commands })
+rest.put(Routes.applicationGuildCommands(config.DISCORD_APP_ID, config.DISCORD_GUILD_ID), { body: commands })
   .then(() => console.log('Successfully registered application commands.'))
   .catch(console.error);

@@ -17,9 +17,9 @@ const {
   AudioPlayerStatus,
   VoiceConnectionStatus,
 } = require('@discordjs/voice');
+const config = require('./config.json');
 
 const CHANNEL_ID = '696242550163374100'; // 'General' voice channel 'Colonial Cannibalism Union' server
-const AUDIO_FILE_PATHS = require('./audio-paths.js');
 
 
 
@@ -73,10 +73,10 @@ player.on('stateChange', (oldState, newState) => {
 
 
 async function trackList(interaction) {
-  const formatLength = getIntegerLength(AUDIO_FILE_PATHS.length);
+  const formatLength = getIntegerLength(config.AUDIO_FILE_PATHS.length);
   let response = '## Track list\n';
-  for (let index = 0; index < AUDIO_FILE_PATHS.length; index++) {
-    const path = AUDIO_FILE_PATHS[index];
+  for (let index = 0; index < config.AUDIO_FILE_PATHS.length; index++) {
+    const path = config.AUDIO_FILE_PATHS[index];
     response = response + `${formatInteger(formatLength, index)}: ${justFileName(path)}\n`;
   }
   await interaction.reply(response);
@@ -91,7 +91,7 @@ function makeButtonRow(buttons) {
 }
 
 async function trackButtons(interaction) {
-  const buttons = AUDIO_FILE_PATHS.map((path, index) => {
+  const buttons = config.AUDIO_FILE_PATHS.map((path, index) => {
     return new ButtonBuilder()
 					.setCustomId('play:' + index)
 					.setLabel(justFileName(path))
@@ -142,7 +142,7 @@ async function _play(interaction, trackNum) {
   }
 
   // ...........................................................................
-  const track = AUDIO_FILE_PATHS[trackNum % AUDIO_FILE_PATHS.length];
+  const track = config.AUDIO_FILE_PATHS[trackNum % config.AUDIO_FILE_PATHS.length];
   const trackName = justFileName(track);
 
   // Play the requested audio file

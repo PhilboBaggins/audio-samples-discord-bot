@@ -1,0 +1,10 @@
+{
+  "DISCORD_TOKEN": "",
+  "DISCORD_APP_ID": "",
+  "DISCORD_GUILD_ID": "",
+  "AUDIO_FILE_PATHS": [
+    "/path/to/audio-sample-0.wav",
+    "/path/to/audio-sample-1.wav",
+    "/path/to/audio-sample-2.mp3"
+  ]
+}

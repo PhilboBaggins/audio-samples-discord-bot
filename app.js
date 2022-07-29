@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const audio = require('./audio.js');
-require('dotenv').config();
+const config = require('./config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 
@@ -30,4 +30,4 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(config.DISCORD_TOKEN);
