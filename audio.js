@@ -22,7 +22,7 @@ async function trackList(interaction) {
     const path = config.AUDIO_FILE_PATHS[index];
     response = response + `${formatInteger(formatLength, index)}: ${justFileName(path)}\n`;
   }
-  await interaction.reply(response);
+  await interaction.reply({ content: response, ephemeral: true });
 }
 
 function makeButtonRow(buttons) {
@@ -48,12 +48,12 @@ async function trackButtons(interaction) {
 
   // Send first block of buttons as a reply
   const firstMessageButtons = partitionedButtons[0].map(makeButtonRow);
-  await interaction.reply({ content: 'Audio tracks', components: firstMessageButtons });
+  await interaction.reply({ content: 'Audio tracks', components: firstMessageButtons, ephemeral: true });
 
   // Send addition blocks of buttons as a follow up
   for (let index = 1; index < partitionedButtons.length; index++) {
     const laterMessageButtons = partitionedButtons[index].map(makeButtonRow);
-    await interaction.followUp({ content: 'More audio tracks', components: laterMessageButtons });
+    await interaction.followUp({ content: 'More audio tracks', components: laterMessageButtons, ephemeral: true });
   }
 }
 
