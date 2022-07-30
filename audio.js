@@ -16,8 +16,6 @@ const {
 } = require('./util.js');
 const config = require('./config.json');
 
-const CHANNEL_ID = '696242550163374100'; // 'General' voice channel 'Colonial Cannibalism Union' server
-
 const player = createAudioPlayer();
 
 player.on('error', (error) => {
