@@ -7,12 +7,12 @@ const commands = [
   new SlashCommandBuilder().setName('tracks').setDescription('Show track list'),
   new SlashCommandBuilder().setName('track-buttons').setDescription('Show track buttons'),
   new SlashCommandBuilder()
-	.setName('play')
-	.setDescription('Play audio track')
+  .setName('play')
+  .setDescription('Play audio track')
   .addIntegerOption(option =>
-		option.setName('track-num')
-			.setDescription('The track number to play')
-			.setRequired(true)),
+    option.setName('track-num')
+      .setDescription('The track number to play')
+      .setRequired(true)),
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(config.DISCORD_TOKEN);
