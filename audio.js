@@ -33,13 +33,15 @@ function makeButtonRow(buttons) {
   return row;
 }
 
-async function trackButtons(interaction) {
-  const buttons = config.AUDIO_FILE_PATHS.map((path, index) => {
+function makeButton(path, index) {
     return new ButtonBuilder()
           .setCustomId('play:' + index)
           .setLabel(justFileName(path))
           .setStyle(ButtonStyle.Primary);
-  });
+}
+
+async function trackButtons(interaction) {
+  const buttons = config.AUDIO_FILE_PATHS.map(makeButton);
 
   // Discord limits the number of buttons per row and the number of rows per message... so lets respect that
   const numButtonsPerRow = 5;
