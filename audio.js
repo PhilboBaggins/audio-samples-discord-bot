@@ -22,9 +22,9 @@ player.on('error', (error) => {
   console.error(`Error with audio player: ${error.message} with resource ${error.resource.metadata.title}`);
 });
 
-player.on('stateChange', (oldState, newState) => {
-  //console.log(`Changing music player state from ${oldState.status} to ${newState.status}`);
-});
+//player.on('stateChange', (oldState, newState) => {
+//  console.log(`Changing music player state from ${oldState.status} to ${newState.status}`);
+//});
 
 async function trackList(interaction) {
   const formatLength = getIntegerLength(config.AUDIO_FILE_PATHS.length);
@@ -34,7 +34,7 @@ async function trackList(interaction) {
     response = response + `${formatInteger(formatLength, index)}: ${justFileName(path)}\n`;
   }
   await interaction.reply(response);
-};
+}
 
 function makeButtonRow(buttons) {
   const row = new ActionRowBuilder();
@@ -105,7 +105,7 @@ async function _play(interaction, trackNum) {
 
   console.log(`${interaction.member.user.username} is playing ${trackName}`);
   interaction.reply({ content: `Playing ${trackName}`, ephemeral: true });
-};
+}
 
 module.exports = {
   trackList: trackList,
