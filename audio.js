@@ -87,11 +87,11 @@ async function _play(interaction, player, trackNum) {
   }
 
   // ...........................................................................
-  const track = config.AUDIO_FILE_PATHS[trackNum % config.AUDIO_FILE_PATHS.length];
-  const trackName = justFileName(track);
+  const trackPath = config.AUDIO_FILE_PATHS[trackNum % config.AUDIO_FILE_PATHS.length];
+  const trackName = justFileName(trackPath);
 
   // Play the requested audio file
-  let resource = createAudioResource(track);
+  let resource = createAudioResource(trackPath);
   player.play(resource);
 
   console.log(`${interaction.member.user.username} is playing ${trackName}`);
