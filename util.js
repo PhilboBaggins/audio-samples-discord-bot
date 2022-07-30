@@ -13,7 +13,7 @@ function getIntegerLength(num) {
 }
 
 function justFileName(path) {
-  fileNameWithExt = baseName(path);
+  let fileNameWithExt = baseName(path);
   return fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf('.')) || fileNameWithExt;
 }
 
