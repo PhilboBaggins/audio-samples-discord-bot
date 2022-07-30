@@ -4,7 +4,6 @@ const {
   ButtonStyle
 } = require('discord.js');
 const {
-  createAudioPlayer,
   createAudioResource,
   joinVoiceChannel,
 } = require('@discordjs/voice');
@@ -15,16 +14,6 @@ const {
   partition,
 } = require('./util.js');
 const config = require('./config.json');
-
-const player = createAudioPlayer();
-
-player.on('error', (error) => {
-  console.error(`Error with audio player: ${error.message} with resource ${error.resource.metadata.title}`);
-});
-
-//player.on('stateChange', (oldState, newState) => {
-//  console.log(`Changing music player state from ${oldState.status} to ${newState.status}`);
-//});
 
 async function trackList(interaction) {
   const formatLength = getIntegerLength(config.AUDIO_FILE_PATHS.length);
@@ -68,17 +57,17 @@ async function trackButtons(interaction) {
   }
 }
 
-async function playFromButton(interaction) {
+async function playFromButton(interaction, player) {
   const trackNum = interaction.customId.split(':')[1];
-  return _play(interaction, trackNum);
+  return _play(interaction, player, trackNum);
 }
 
-async function playFromOption(interaction) {
+async function playFromOption(interaction, player) {
   const trackNum = interaction.options.getInteger('track-num');
-  return _play(interaction, trackNum);
+  return _play(interaction, player, trackNum);
 }
 
-async function _play(interaction, trackNum) {
+async function _play(interaction, player, trackNum) {
   if (interaction.member.voice.channel) {
     // Join the same voice channel as the user who issued the command
     const channel = interaction.member.voice.channel;
