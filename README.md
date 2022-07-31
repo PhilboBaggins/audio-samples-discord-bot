@@ -10,10 +10,11 @@ Create your own bot on Discord ..... need "bot" and "application.commands" scope
 
 1. Run `git clone https://github.com/PhilboBaggins/audio-samples-discord-bot`
 2. Run `npm install`
-3. Fill in variables into `config.json` file:
+3. Run `cp config.json.sample config.json`
+4. Fill in variables into `config.json` file:
    1. DISCORD_TOKEN
    2. DISCORD_APP_ID
    3. DISCORD_GUILD_ID
-4. Fill in paths to audio files into `config.js`
-5. Run `node deploy-commands.js`
-6. Run `node app.js`
+5. Fill in paths to audio files into `config.js`
+6. Run `node deploy-commands.js`
+7. Run `node app.js`
