@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-const { createAudioPlayer } = require('@discordjs/voice');
+const { createAudioPlayer, getVoiceConnection } = require('@discordjs/voice');
 const audio = require('./audio.js');
 const config = require('./config.json');
 
@@ -34,6 +34,16 @@ client.on('interactionCreate', async interaction => {
     await audio.playFromButton(interaction, player);
   } else {
     console.log(interaction.options);
+  }
+});
+
+client.on('voiceStateUpdate', (oldState, newState) => {
+  const userJustLeftChannel = (oldState.channel !== null) && (newState.channel === null);
+  if (userJustLeftChannel) {
+    if ((oldState.channel.members.size == 1) && (oldState.channel.members.has(config.DISCORD_APP_ID))) {
+      console.log('I am the only one left ... time to leave');
+      getVoiceConnection(oldState.guild.id).disconnect();
+    }
   }
 });
 
