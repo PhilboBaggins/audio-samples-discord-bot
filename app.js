@@ -39,7 +39,8 @@ client.on('interactionCreate', async interaction => {
 
 client.on('voiceStateUpdate', (oldState, newState) => {
   const userJustLeftChannel = (oldState.channel !== null) && (newState.channel === null);
-  if (userJustLeftChannel) {
+  const userJustMovedChannel = (oldState.channel !== null) && (newState.channel !== null);
+  if (userJustLeftChannel || userJustMovedChannel) {
     const numNonBotMem = oldState.channel.members.filter(m => !m.user.bot).size;
     const iAmConnected = oldState.channel.members.has(config.DISCORD_APP_ID);
     if (iAmConnected && (numNonBotMem == 0)) {
