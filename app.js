@@ -1,17 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-const { createAudioPlayer, getVoiceConnection } = require('@discordjs/voice');
+const { getVoiceConnection } = require('@discordjs/voice');
 const audio = require('./audio.js');
 const config = require('./config.json');
-
-const player = createAudioPlayer();
-
-player.on('error', (error) => {
-  console.error(`Error with audio player: ${error.message} with resource ${error.resource.metadata.title}`);
-});
-
-//player.on('stateChange', (oldState, newState) => {
-//  console.log(`Changing music player state from ${oldState.status} to ${newState.status}`);
-//});
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 
@@ -29,9 +19,9 @@ client.on('interactionCreate', async interaction => {
   } else if (commandName === 'track-buttons') {
     await  audio.trackButtons(interaction);
   } else if (commandName === 'play') {
-    await audio.playFromOption(interaction, player);
+    await audio.playFromOption(interaction);
   } else if (interaction.isButton() && interaction.customId.startsWith('play:')) {
-    await audio.playFromButton(interaction, player);
+    await audio.playFromButton(interaction);
   } else {
     console.log(interaction.options);
   }

@@ -4,6 +4,7 @@ const {
   ButtonStyle
 } = require('discord.js');
 const {
+  createAudioPlayer,
   createAudioResource,
   joinVoiceChannel,
 } = require('@discordjs/voice');
@@ -59,31 +60,37 @@ async function trackButtons(interaction) {
   }
 }
 
-async function playFromButton(interaction, player) {
+async function playFromButton(interaction) {
   const trackNum = interaction.customId.split(':')[1];
-  return _play(interaction, player, trackNum);
+  return _play(interaction, trackNum);
 }
 
-async function playFromOption(interaction, player) {
+async function playFromOption(interaction) {
   const trackNum = interaction.options.getInteger('track-num');
-  return _play(interaction, player, trackNum);
+  return _play(interaction, trackNum);
 }
 
-async function _play(interaction, player, trackNum) {
-  if (interaction.member.voice.channel) {
-    // Join the same voice channel as the user who issued the command
-    const channel = interaction.member.voice.channel;
-    const voiceChannelConnection = joinVoiceChannel({
-      channelId: channel.id,
-      guildId: channel.guild.id,
-      adapterCreator: channel.guild.voiceAdapterCreator,
-    });
-  
-    // and subscribe that channel to receive data from the audio player
-    voiceChannelConnection.subscribe(player);
-  } else {
+async function _play(interaction, trackNum) {
+  if (!interaction.member.voice.channel) {
     await interaction.reply({ content: 'Join a voice channel then try again!', ephemeral: true  });
     return;
+  }
+  
+  // Join the same voice channel as the user who issued the command
+  const channel = interaction.member.voice.channel;
+  const voiceChannelConnection = joinVoiceChannel({
+    channelId: channel.id,
+    guildId: channel.guild.id,
+    adapterCreator: channel.guild.voiceAdapterCreator,
+  });
+
+  // Get the existing audio player for this channel or create a new one
+  let player;
+  if (voiceChannelConnection.state && voiceChannelConnection.state.subscription && voiceChannelConnection.state.subscription.player) {
+    player = voiceChannelConnection.state.subscription.player;
+  } else {
+    player = createAudioPlayer();
+    voiceChannelConnection.subscribe(player);
   }
 
   // ...........................................................................
