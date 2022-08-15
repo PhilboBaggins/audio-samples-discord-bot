@@ -34,10 +34,18 @@ function makeButtonRow(buttons) {
   return row;
 }
 
+function limitStrLen(str, len) {
+  if (str.length > len){
+     return str.slice(0, len);
+  } else {
+     return str;
+  };
+}
+
 function makeButton(path, index) {
     return new ButtonBuilder()
           .setCustomId('play:' + index)
-          .setLabel(justFileName(path))
+          .setLabel(limitStrLen(justFileName(path), 80))
           .setStyle(ButtonStyle.Primary);
 }
 
