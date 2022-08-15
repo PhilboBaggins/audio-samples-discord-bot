@@ -101,8 +101,12 @@ async function _play(interaction, trackNum) {
   let resource = createAudioResource(trackPath);
   player.play(resource);
 
+  const replayButton = makeButtonRow([
+    makeButton(trackPath, trackNum)
+  ]);
+
   console.log(`${interaction.member.user.username} is playing ${trackName}`);
-  interaction.reply({ content: `Playing ${trackName}`, ephemeral: true });
+  interaction.reply({ content: `Playing ${trackName}`, components: [replayButton], ephemeral: true });
 }
 
 module.exports = {
