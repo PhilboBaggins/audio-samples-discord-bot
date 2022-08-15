@@ -75,7 +75,7 @@ async function _play(interaction, trackNum) {
     await interaction.reply({ content: 'Join a voice channel then try again!', ephemeral: true  });
     return;
   }
-  
+
   // Join the same voice channel as the user who issued the command
   const channel = interaction.member.voice.channel;
   const voiceChannelConnection = joinVoiceChannel({
@@ -101,12 +101,16 @@ async function _play(interaction, trackNum) {
   let resource = createAudioResource(trackPath);
   player.play(resource);
 
-  const replayButton = makeButtonRow([
-    makeButton(trackPath, trackNum)
-  ]);
+  if (interaction.isButton()) {
+    interaction.deferUpdate();
+  } else {
+    const replayButton = makeButtonRow([
+      makeButton(trackPath, trackNum)
+    ]);
 
+    interaction.reply({ content: `Playing ${trackName}`, components: [replayButton], ephemeral: true });
+  }
   console.log(`${interaction.member.user.username} is playing ${trackName}`);
-  interaction.reply({ content: `Playing ${trackName}`, components: [replayButton], ephemeral: true });
 }
 
 module.exports = {
