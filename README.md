@@ -15,6 +15,6 @@ Create your own bot on Discord ..... need "bot" and "application.commands" scope
    1. DISCORD_TOKEN
    2. DISCORD_APP_ID
    3. DISCORD_GUILD_ID
-5. Fill in paths to audio files into `config.js`
-6. Run `node deploy-commands.js`
-7. Run `node app.js`
+   4. Fill in paths to audio files into the AUDIO_FILE_PATHS array
+5. Run `node deploy-commands.js`
+6. Run `node app.js`
